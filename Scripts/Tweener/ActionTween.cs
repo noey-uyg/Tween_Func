@@ -6,8 +6,8 @@ using System;
 public struct TweenData
 {
     public Transform target;
-    public Vector3 from;
-    public Vector3 to;
+    public object from;
+    public object to;
     public float duration;
     public EaseType easeType;
     public LoopType loopType;
@@ -20,8 +20,8 @@ public struct TweenData
 public class ActionTween : MonoBehaviour
 {
     public Transform _target;
-    public Vector3 _from;
-    public Vector3 _to;
+    public object _from;
+    public object _to;
     public float _duration;
     public EaseType _easeType;
     public LoopType _loopType;
@@ -48,13 +48,10 @@ public class ActionTween : MonoBehaviour
 
     private void Awake()
     {
-        easeFunc = new Dictionary<EaseType, Func<float, float>> {
-            {EaseType.Linear, Linear },
-            {EaseType.InSine, InSine }
-        };
+        InitEase();
     }
 
-    public virtual void Update()
+    protected virtual void Update()
     {
         if (!isCompleted)
         {
@@ -64,7 +61,7 @@ public class ActionTween : MonoBehaviour
             Func<float, float> selectedEaseFunction = easeFunc[_easeType];
             float easeV = selectedEaseFunction(t);
 
-            _target.position = Vector3.Lerp(_from, _to, easeV);
+            UpdateTween(easeV);
 
             if (elapsedTime >= _duration)
             {
@@ -74,7 +71,49 @@ public class ActionTween : MonoBehaviour
         }
     }
 
+    protected virtual void UpdateTween(float easeV)
+    {
+
+    }
+
     //https://easings.net/ko# 이징 함수 치트 시트
+    private void InitEase()
+    {
+        easeFunc = new Dictionary<EaseType, Func<float, float>> {
+            {EaseType.Linear, Linear },
+            {EaseType.InSine, InSine },
+            {EaseType.OutSine, OutSine },
+            {EaseType.InOutSine, InOutSine },
+            {EaseType.InQuad, InQuad },
+            {EaseType.OutQuad, OutQuad },
+            {EaseType.InOutQuad, InOutQuad },
+            {EaseType.InCubic, InCubic },
+            {EaseType.OutCubic, OutCubic },
+            {EaseType.InOutCubic, InOutCubic },
+            {EaseType.InQuart, InQuart },
+            {EaseType.OutQuart, OutQuart },
+            {EaseType.InOutQuart, InOutQuart },
+            {EaseType.InQuint, InQuint },
+            {EaseType.OutQuint, OutQuint },
+            {EaseType.InOutQuint, InOutQuint },
+            {EaseType.InExpo, InExpo },
+            {EaseType.OutExpo, OutExpo },
+            {EaseType.InOutExpo, InOutExpo },
+            {EaseType.InCirc, InCirc },
+            {EaseType.OutCirc, OutCirc },
+            {EaseType.InOutCirc, InOutCirc },
+            {EaseType.InElastic, InElastic },
+            {EaseType.OutElastic, OutElastic },
+            {EaseType.InOutElastic, InOutElastic },
+            {EaseType.InBack, InBack },
+            {EaseType.OutBack, OutBack },
+            {EaseType.InOutBack, InOutBack },
+            {EaseType.InBounce, InBounce },
+            {EaseType.OutBounce, OutBounce },
+            {EaseType.InOutBounce, InOutBounce },
+        };
+    }
+
     private float Linear(float t){
         return t;
     }

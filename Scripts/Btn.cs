@@ -4,18 +4,35 @@ using UnityEngine;
 
 public class Btn : MonoBehaviour
 {
+    public EaseType easeType;
     public GameObject Go1;
     public GameObject Go2;
 
+    Vector3 originPos;
+
+    private void Start()
+    {
+        originPos = Go1.transform.position;
+    }
+
     public void OnGo1()
     {
-        Tweener.MoveToTarget(Go1.transform, Go2.transform.position, 2f, EaseType.Linear, LoopType.None);
-        //Go1.SetActive(!Go1.activeSelf);
+
+        Tweener.MoveToTarget(Go1.transform, Go2.transform.position, 2f, easeType, LoopType.None);
     }
 
     public void OnGo2()
     {
-        Tweener.MoveToTarget(Go2.transform, Go1.transform.position, 2f, EaseType.InSine, LoopType.None);
-        //Go2.SetActive(!Go2.activeSelf);
+        Tweener.RotateToTarget(Go1.transform, new Vector3(360,180,0), 2f, easeType, LoopType.None);
+    }
+
+    public void OnGo3()
+    {
+        Tweener.ScaleToTarget(Go1.transform, new Vector3(1.5f,1.5f,1.5f), 2f, easeType, LoopType.None);
+    }
+
+    public void OnGo4()
+    {
+        Tweener.ColorToTarget(Go1.transform, new Color(214,213,152), 2f, easeType, LoopType.None);
     }
 }

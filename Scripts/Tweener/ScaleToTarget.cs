@@ -2,18 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MoveToTarget : ActionTween
+public class ScaleToTarget : ActionTween
 {
-    private Vector3 initialPosition;
+    private Vector3 initialScale;
 
     public override void SetTweenData(TweenData data)
     {
         base.SetTweenData(data);
-        initialPosition = _target.position;
+        initialScale = _target.localScale;
     }
+
 
     protected override void UpdateTween(float easeV)
     {
-        _target.position = Vector3.Lerp((Vector3)_from, (Vector3)_to, easeV);
+        _target.localScale = Vector3.Lerp(initialScale, (Vector3)_to, easeV);
     }
 }
