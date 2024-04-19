@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class ScaleToTarget : ActionTween
@@ -11,7 +9,6 @@ public class ScaleToTarget : ActionTween
         base.SetTweenData(data);
         initialScale = _target.localScale;
     }
-
 
     protected override void UpdateTween(float easeV)
     {
