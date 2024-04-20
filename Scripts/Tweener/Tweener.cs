@@ -62,7 +62,10 @@ public static class Tweener
             duration = duration,
             easeType = easeType,
             loopType = loopType,
-            OnComplete = onComplete
+            OnComplete = () =>
+            {
+                moveToTargetObj.enabled = false;
+            }
         };
 
         moveToTargetObj.SetTweenData(data);
@@ -85,7 +88,10 @@ public static class Tweener
             duration = duration,
             easeType = easeType,
             loopType = loopType,
-            OnComplete = onComplete
+            OnComplete = () =>
+            {
+                rotateToTargetObj.enabled = false;
+            }
         };
 
         rotateToTargetObj.SetTweenData(data);
@@ -108,7 +114,10 @@ public static class Tweener
             duration = duration,
             easeType = easeType,
             loopType = loopType,
-            OnComplete = onComplete
+            OnComplete = () =>
+            {
+                scaleToTargetObj.enabled = false;
+            }
         };
 
         scaleToTargetObj.SetTweenData(data);
@@ -158,7 +167,10 @@ public static class Tweener
             duration = duration,
             easeType = easeType,
             loopType = loopType,
-            OnComplete = onComplete
+            OnComplete = () =>
+            {
+                alphaToTargetObj.enabled = false;
+            }
         };
 
         alphaToTargetObj.SetTweenData(data);

@@ -9,13 +9,14 @@ public class Btn : MonoBehaviour
     public GameObject cube;
     public GameObject Go2;
 
-    Vector3 originPos;
+    SequenceTween sequence;
+    ParallelTween parallel;
 
     private void Start()
     {
-        originPos = Go1.transform.position;
+        sequence = new SequenceTween(() => Debug.Log("Sequence complete"));
+        parallel = new ParallelTween(() => Debug.Log("Parallel complte"));
     }
-
     public void OnGo1()
     {
         Tweener.MoveToTarget(cube.transform, Go2.transform.position, 2f, easeType, LoopType.None);
@@ -44,5 +45,20 @@ public class Btn : MonoBehaviour
     {
         Tweener.AlphaToTarget(cube.transform, 0, 2f, easeType, LoopType.None);
         Tweener.AlphaToTarget(Go1.transform, 0, 2f, easeType, LoopType.None);
+    }
+
+    public void OnGo6()
+    {
+        sequence.AddTween(Tweener.MoveToTarget(Go1.transform, Go2.transform.position, 2f, EaseType.OutCirc, LoopType.None));
+        sequence.AddTween(Tweener.RotateToTarget(Go1.transform, new Vector3(360, 360, 0), 2f, EaseType.InOutQuad, LoopType.None));
+        sequence.Play();
+
+    }
+
+    public void OnGo7()
+    {
+        parallel.AddTween(Tweener.ScaleToTarget(cube.transform, new Vector3(1.5f, 1.5f, 1.5f), 2f, EaseType.InOutCirc, LoopType.None));
+        parallel.AddTween(Tweener.ColorToTarget(cube.transform, new Color(214, 213, 152), 2f, EaseType.InOutQuint, LoopType.None));
+        parallel.Play();
     }
 }

@@ -29,6 +29,7 @@ public class ActionTween : MonoBehaviour
 
     public float elapsedTime;
     public bool isCompleted;
+    private bool _isRunning;
 
     public Dictionary<EaseType, Func<float, float>> easeFunc;
 
@@ -46,6 +47,14 @@ public class ActionTween : MonoBehaviour
         isCompleted = false;
     }
 
+    public void RunTween()
+    {
+        if (isCompleted) return;
+
+        isCompleted = true;
+        elapsedTime = 0f;
+    }
+
     private void Awake()
     {
         InitEase();
@@ -53,21 +62,20 @@ public class ActionTween : MonoBehaviour
 
     protected virtual void Update()
     {
-        if (!isCompleted)
+        if (!isCompleted) return;
+
+        elapsedTime += Time.deltaTime;
+        float t = Mathf.Clamp01(elapsedTime / _duration);
+
+        Func<float, float> selectedEaseFunction = easeFunc[_easeType];
+        float easeV = selectedEaseFunction(t);
+
+        UpdateTween(easeV);
+
+        if (elapsedTime >= _duration)
         {
-            elapsedTime += Time.deltaTime;
-            float t = Mathf.Clamp01(elapsedTime / _duration);
-
-            Func<float, float> selectedEaseFunction = easeFunc[_easeType];
-            float easeV = selectedEaseFunction(t);
-
-            UpdateTween(easeV);
-
-            if (elapsedTime >= _duration)
-            {
-                isCompleted = true;
-                OnComplete?.Invoke();
-            }
+            isCompleted = false;
+            OnComplete?.Invoke();
         }
     }
 
@@ -76,6 +84,8 @@ public class ActionTween : MonoBehaviour
 
     }
 
+
+    #region 이징함수
     //https://easings.net/ko# 이징 함수 치트 시트
     private void InitEase()
     {
@@ -276,4 +286,5 @@ public class ActionTween : MonoBehaviour
             ? (1 - OutBounce(1 - 2 * t)) / 2
             : (1 + OutBounce(2 * t - 1)) / 2;
     }
+    #endregion
 }
