@@ -14,6 +14,7 @@ public struct TweenData
     public Action OnComplete;
 
     public float elapsedTime;
+    public float delayTimer;
     public bool isCompleted;
 }
 
@@ -29,6 +30,8 @@ public class ActionTween : MonoBehaviour
 
     public float elapsedTime;
     public bool isCompleted;
+    public float _delayTimer;
+
     private bool _isRunning;
 
     public Dictionary<EaseType, Func<float, float>> easeFunc;
@@ -42,7 +45,9 @@ public class ActionTween : MonoBehaviour
         _duration = data.duration;
         _easeType = data.easeType;
         _loopType = data.loopType;
+        _delayTimer = data.delayTimer;
         OnComplete = data.OnComplete;
+
         elapsedTime = 0f;
         isCompleted = false;
     }
@@ -64,6 +69,14 @@ public class ActionTween : MonoBehaviour
     {
         if (!isCompleted) return;
 
+        if (_delayTimer > 0)
+        {
+            Debug.Log("µÙ∑π¿Ã¡ﬂ");
+            _delayTimer -= Time.deltaTime;
+            return;
+        }
+
+        Debug.Log("µÙ∑π¿Ã æ¯¿Ω");
         elapsedTime += Time.deltaTime;
         float t = Mathf.Clamp01(elapsedTime / _duration);
 

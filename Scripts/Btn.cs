@@ -49,7 +49,7 @@ public class Btn : MonoBehaviour
 
     public void OnGo6()
     {
-        sequence.AddTween(Tweener.MoveToTarget(Go1.transform, Go2.transform.position, 2f, EaseType.OutCirc, LoopType.None));
+        sequence.AddTween(Tweener.MoveToTarget(Go1.transform, Go2.transform.position, 2f, EaseType.OutCirc, LoopType.None,5f));
         sequence.AddTween(Tweener.RotateToTarget(Go1.transform, new Vector3(360, 360, 0), 2f, EaseType.InOutQuad, LoopType.None));
         sequence.Play();
 

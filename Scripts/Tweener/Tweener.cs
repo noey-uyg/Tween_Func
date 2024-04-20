@@ -49,7 +49,7 @@ public enum LoopType
 
 public static class Tweener
 {
-    public static ActionTween MoveToTarget(Transform target, Vector3 to, float duration, EaseType easeType, LoopType loopType,Action onComplete = null)
+    public static ActionTween MoveToTarget(Transform target, Vector3 to, float duration, EaseType easeType, LoopType loopType, float delay = 0f, Action onComplete = null)
     {
         ActionTween moveToTargetObj = !target.GetComponent<MoveToTarget>()
             ? target.gameObject.AddComponent<MoveToTarget>()
@@ -62,6 +62,7 @@ public static class Tweener
             duration = duration,
             easeType = easeType,
             loopType = loopType,
+            delayTimer = delay,
             OnComplete = () =>
             {
                 moveToTargetObj.enabled = false;
@@ -75,7 +76,7 @@ public static class Tweener
         return moveToTargetObj;
     }
 
-    public static ActionTween RotateToTarget(Transform target, Vector3 to, float duration, EaseType easeType, LoopType loopType, Action onComplete = null)
+    public static ActionTween RotateToTarget(Transform target, Vector3 to, float duration, EaseType easeType, LoopType loopType, float delay = 0f, Action onComplete = null)
     {
         ActionTween rotateToTargetObj = !target.GetComponent<RotateToTarget>() 
             ? target.gameObject.AddComponent<RotateToTarget>()
@@ -88,6 +89,7 @@ public static class Tweener
             duration = duration,
             easeType = easeType,
             loopType = loopType,
+            delayTimer = delay,
             OnComplete = () =>
             {
                 rotateToTargetObj.enabled = false;
@@ -101,7 +103,7 @@ public static class Tweener
         return rotateToTargetObj;
     }
 
-    public static ActionTween ScaleToTarget(Transform target, Vector3 to, float duration, EaseType easeType, LoopType loopType, Action onComplete = null)
+    public static ActionTween ScaleToTarget(Transform target, Vector3 to, float duration, EaseType easeType, LoopType loopType, float delay = 0f, Action onComplete = null)
     {
         ActionTween scaleToTargetObj = !target.GetComponent<ScaleToTarget>()
             ? target.gameObject.AddComponent<ScaleToTarget>()
@@ -114,6 +116,7 @@ public static class Tweener
             duration = duration,
             easeType = easeType,
             loopType = loopType,
+            delayTimer = delay,
             OnComplete = () =>
             {
                 scaleToTargetObj.enabled = false;
@@ -127,7 +130,7 @@ public static class Tweener
         return scaleToTargetObj;
     }
 
-    public static ActionTween ColorToTarget(Transform target, Color to, float duration, EaseType easeType, LoopType loopType, Action onComplete = null)
+    public static ActionTween ColorToTarget(Transform target, Color to, float duration, EaseType easeType, LoopType loopType, float delay = 0f, Action onComplete = null)
     {
         ActionTween colorToTargetObj = !target.GetComponent<ColorToTarget>()
             ? target.gameObject.AddComponent<ColorToTarget>()
@@ -140,6 +143,7 @@ public static class Tweener
             duration = duration,
             easeType = easeType,
             loopType = loopType,
+            delayTimer = delay,
             OnComplete = () =>
             {
                 colorToTargetObj.enabled = false;
@@ -154,7 +158,7 @@ public static class Tweener
     }
 
 
-    public static ActionTween AlphaToTarget(Transform target, float toAlpha, float duration, EaseType easeType, LoopType loopType, Action onComplete = null)
+    public static ActionTween AlphaToTarget(Transform target, float toAlpha, float duration, EaseType easeType, LoopType loopType, float delay = 0f, Action onComplete = null)
     {
         ActionTween alphaToTargetObj = !target.GetComponent<AlphaToTarget>()
             ? target.gameObject.AddComponent<AlphaToTarget>()
@@ -167,6 +171,7 @@ public static class Tweener
             duration = duration,
             easeType = easeType,
             loopType = loopType,
+            delayTimer = delay,
             OnComplete = () =>
             {
                 alphaToTargetObj.enabled = false;
