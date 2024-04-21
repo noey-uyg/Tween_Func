@@ -22,6 +22,12 @@ public class SequenceTween
     public void Play()
     {
         currentTweenIdx = 0;
+
+        foreach (var tween in tweens)
+        {
+            tween.isCompleted = false;
+        }
+
         PlayNextTween();
     }
 
@@ -30,6 +36,7 @@ public class SequenceTween
         if(currentTweenIdx < tweens.Count)
         {
             ActionTween currentTween = tweens[currentTweenIdx];
+            currentTween.isCompleted = true;
             currentTween.OnComplete += OnTweenComplete;
             currentTween.RunTween();
         }

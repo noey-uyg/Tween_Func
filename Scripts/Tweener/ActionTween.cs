@@ -32,8 +32,6 @@ public class ActionTween : MonoBehaviour
     public bool isCompleted;
     public float _delayTimer;
 
-    private bool _isRunning;
-
     public Dictionary<EaseType, Func<float, float>> easeFunc;
 
     public virtual void SetTweenData(TweenData data)
@@ -71,12 +69,10 @@ public class ActionTween : MonoBehaviour
 
         if (_delayTimer > 0)
         {
-            Debug.Log("딜레이중");
             _delayTimer -= Time.deltaTime;
             return;
         }
 
-        Debug.Log("딜레이 없음");
         elapsedTime += Time.deltaTime;
         float t = Mathf.Clamp01(elapsedTime / _duration);
 
@@ -87,8 +83,37 @@ public class ActionTween : MonoBehaviour
 
         if (elapsedTime >= _duration)
         {
-            isCompleted = false;
-            OnComplete?.Invoke();
+            LoopHandle();
+        }
+    }
+
+    private void LoopHandle()
+    {
+        switch (_loopType)
+        {
+            case LoopType.Incremental:
+                Vector3 distance = (Vector3)_to - (Vector3)_from;
+                _from = _to;
+                _to = (Vector3)_from + distance;
+                _delayTimer = 0.2f;
+                elapsedTime = 0f;
+                break;
+            case LoopType.Restart:
+                _from = GetOriginalValue();
+                _delayTimer = 0.2f;
+                elapsedTime = 0f;
+                break;
+            case LoopType.Yoyo:
+                object temp = _from;
+                _from = _to;
+                _to = temp;
+                _delayTimer = 0.2f;
+                elapsedTime = 0f;
+                break;
+            default:
+                isCompleted = false;
+                OnComplete?.Invoke();
+                break;
         }
     }
 
@@ -97,6 +122,10 @@ public class ActionTween : MonoBehaviour
 
     }
 
+    protected virtual object GetOriginalValue()
+    {
+        return _from;
+    }
 
     #region 이징함수
     //https://easings.net/ko# 이징 함수 치트 시트

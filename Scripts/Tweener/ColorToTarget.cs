@@ -9,10 +9,9 @@ public class ColorToTarget : ActionTween
     private Color colorTo;
     private Color normalizedColor;
 
-    public override void SetTweenData(TweenData data)
-    {
-        base.SetTweenData(data);
 
+    private void Start()
+    {
         targetGraphic = _target.GetComponent<Graphic>();
         if (targetGraphic != null)
         {
@@ -21,12 +20,17 @@ public class ColorToTarget : ActionTween
         else
         {
             targetRenderer = _target.GetComponent<Renderer>();
-            if(targetRenderer != null)
+            if (targetRenderer != null)
             {
                 initialColor = targetRenderer.material.color;
             }
         }
+    }
 
+    public override void SetTweenData(TweenData data)
+    {
+        base.SetTweenData(data);
+        isCompleted = true;
         colorTo = (Color)_to;
         normalizedColor = new Color(colorTo.r / 255f, colorTo.g / 255f, colorTo.b / 255f, colorTo.a);
     }
@@ -41,5 +45,10 @@ public class ColorToTarget : ActionTween
         {
             targetRenderer.material.color = Color.Lerp(initialColor, normalizedColor, easeV);
         }
+    }
+
+    protected override object GetOriginalValue()
+    {
+        return initialColor;
     }
 }

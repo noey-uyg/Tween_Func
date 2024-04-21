@@ -8,10 +8,8 @@ public class AlphaToTarget : ActionTween
     private Color initialColor;
     private Color targetAlpha;
 
-    public override void SetTweenData(TweenData data)
+    private void Start()
     {
-        base.SetTweenData(data);
-
         targetGraphic = _target.GetComponent<Graphic>();
         if (targetGraphic != null)
         {
@@ -35,6 +33,13 @@ public class AlphaToTarget : ActionTween
                 initialColor = targetRenderer.material.color;
             }
         }
+    }
+
+    public override void SetTweenData(TweenData data)
+    {
+        base.SetTweenData(data);
+
+        isCompleted = true;
         targetAlpha = new Color(initialColor.r, initialColor.g, initialColor.b, (float)_to);
     }
 
@@ -48,5 +53,10 @@ public class AlphaToTarget : ActionTween
         {
             targetRenderer.material.color = Color.Lerp(initialColor, targetAlpha, easeV);
         }
+    }
+
+    protected override object GetOriginalValue()
+    {
+        return initialColor;
     }
 }

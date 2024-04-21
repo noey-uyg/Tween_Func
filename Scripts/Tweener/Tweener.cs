@@ -51,9 +51,7 @@ public static class Tweener
 {
     public static ActionTween MoveToTarget(Transform target, Vector3 to, float duration, EaseType easeType, LoopType loopType, float delay = 0f, Action onComplete = null)
     {
-        ActionTween moveToTargetObj = !target.GetComponent<MoveToTarget>()
-            ? target.gameObject.AddComponent<MoveToTarget>()
-            : target.GetComponent<MoveToTarget>();
+        ActionTween moveToTargetObj = CreateTweenObject<MoveToTarget>(target);
 
         TweenData data = new()
         {
@@ -66,21 +64,18 @@ public static class Tweener
             OnComplete = () =>
             {
                 moveToTargetObj.enabled = false;
+                onComplete?.Invoke();
             }
         };
 
-        moveToTargetObj.SetTweenData(data);
-
-        moveToTargetObj.enabled = true;
+        SetupTween(moveToTargetObj, data);
 
         return moveToTargetObj;
     }
 
     public static ActionTween RotateToTarget(Transform target, Vector3 to, float duration, EaseType easeType, LoopType loopType, float delay = 0f, Action onComplete = null)
     {
-        ActionTween rotateToTargetObj = !target.GetComponent<RotateToTarget>() 
-            ? target.gameObject.AddComponent<RotateToTarget>()
-            : target.GetComponent<RotateToTarget>();
+        ActionTween rotateToTargetObj = CreateTweenObject<RotateToTarget>(target);
 
         TweenData data = new()
         {
@@ -93,22 +88,18 @@ public static class Tweener
             OnComplete = () =>
             {
                 rotateToTargetObj.enabled = false;
+                onComplete?.Invoke();
             }
         };
 
-        rotateToTargetObj.SetTweenData(data);
-
-        rotateToTargetObj.enabled = true;
+        SetupTween(rotateToTargetObj, data);
 
         return rotateToTargetObj;
     }
 
     public static ActionTween ScaleToTarget(Transform target, Vector3 to, float duration, EaseType easeType, LoopType loopType, float delay = 0f, Action onComplete = null)
     {
-        ActionTween scaleToTargetObj = !target.GetComponent<ScaleToTarget>()
-            ? target.gameObject.AddComponent<ScaleToTarget>()
-            : target.GetComponent<ScaleToTarget>();
-
+        ActionTween scaleToTargetObj = CreateTweenObject<ScaleToTarget>(target);
         TweenData data = new()
         {
             target = target,
@@ -120,21 +111,18 @@ public static class Tweener
             OnComplete = () =>
             {
                 scaleToTargetObj.enabled = false;
+                onComplete?.Invoke();
             }
         };
 
-        scaleToTargetObj.SetTweenData(data);
-
-        scaleToTargetObj.enabled = true;
+        SetupTween(scaleToTargetObj, data);
 
         return scaleToTargetObj;
     }
 
     public static ActionTween ColorToTarget(Transform target, Color to, float duration, EaseType easeType, LoopType loopType, float delay = 0f, Action onComplete = null)
     {
-        ActionTween colorToTargetObj = !target.GetComponent<ColorToTarget>()
-            ? target.gameObject.AddComponent<ColorToTarget>()
-            : target.GetComponent<ColorToTarget>();
+        ActionTween colorToTargetObj = CreateTweenObject<ColorToTarget>(target);
 
         TweenData data = new()
         {
@@ -147,12 +135,11 @@ public static class Tweener
             OnComplete = () =>
             {
                 colorToTargetObj.enabled = false;
+                onComplete?.Invoke();
             }
         };
 
-        colorToTargetObj.SetTweenData(data);
-
-        colorToTargetObj.enabled = true;
+        SetupTween(colorToTargetObj, data);
 
         return colorToTargetObj;
     }
@@ -160,9 +147,7 @@ public static class Tweener
 
     public static ActionTween AlphaToTarget(Transform target, float toAlpha, float duration, EaseType easeType, LoopType loopType, float delay = 0f, Action onComplete = null)
     {
-        ActionTween alphaToTargetObj = !target.GetComponent<AlphaToTarget>()
-            ? target.gameObject.AddComponent<AlphaToTarget>()
-            : target.GetComponent<AlphaToTarget>();
+        ActionTween alphaToTargetObj = CreateTweenObject<AlphaToTarget>(target);
 
         TweenData data = new()
         {
@@ -175,13 +160,28 @@ public static class Tweener
             OnComplete = () =>
             {
                 alphaToTargetObj.enabled = false;
+                onComplete?.Invoke();
             }
         };
 
-        alphaToTargetObj.SetTweenData(data);
-
-        alphaToTargetObj.enabled = true;
+        SetupTween(alphaToTargetObj, data);
 
         return alphaToTargetObj;
+    }
+
+    private static T CreateTweenObject<T>(Transform target) where T : ActionTween
+    {
+        T tweenObj = target.GetComponent<T>();
+        if (tweenObj == null)
+        {
+            tweenObj = target.gameObject.AddComponent<T>();
+        }
+        return tweenObj;
+    }
+
+    private static void SetupTween(ActionTween tweenObj, TweenData data)
+    {
+        tweenObj.SetTweenData(data);
+        tweenObj.enabled = true;
     }
 }
