@@ -1,29 +1,31 @@
 using UnityEngine;
 
-public class MoveToTarget : ActionTween
+namespace TweenManager
 {
-    private Vector3 initialPosition;
-
-    private void Start()
+    public class MoveToTarget : ActionTween
     {
-        initialPosition = transform.position;
-    }
+        private Vector3 initialPosition;
 
-    public override void SetTweenData(TweenData data)
-    {
-        base.SetTweenData(data);
-        isCompleted = true;
-        initialPosition = _target.position;
+        private void Start()
+        {
+            initialPosition = transform.position;
+        }
 
-    }
+        public override void SetTweenData(TweenData data)
+        {
+            base.SetTweenData(data);
+            initialPosition = _target.position;
 
-    protected override void UpdateTween(float easeV)
-    {
-        _target.position = Vector3.Lerp((Vector3)_from, (Vector3)_to, easeV);
-    }
+        }
 
-    protected override object GetOriginalValue()
-    {
-        return initialPosition;
+        protected override void UpdateTween(float easeV)
+        {
+            _target.position = Vector3.Lerp((Vector3)_from, (Vector3)_to, easeV);
+        }
+
+        protected override object GetOriginalValue()
+        {
+            return initialPosition;
+        }
     }
 }

@@ -1,27 +1,30 @@
 using UnityEngine;
 
-public class ScaleToTarget : ActionTween
+namespace TweenManager
 {
-    private Vector3 initialScale;
-
-    private void Start()
+    public class ScaleToTarget : ActionTween
     {
-        initialScale = _target.localScale;
-    }
+        private Vector3 initialScale;
 
-    public override void SetTweenData(TweenData data)
-    {
-        base.SetTweenData(data);
-        isCompleted = true;
-    }
+        private void Start()
+        {
+            initialScale = _target.localScale;
+        }
 
-    protected override void UpdateTween(float easeV)
-    {
-        _target.localScale = Vector3.Lerp(initialScale, (Vector3)_to, easeV);
-    }
+        public override void SetTweenData(TweenData data)
+        {
+            base.SetTweenData(data);
+        }
 
-    protected override object GetOriginalValue()
-    {
-        return initialScale;
+        protected override void UpdateTween(float easeV)
+        {
+            _target.localScale = Vector3.Lerp(initialScale, (Vector3)_to, easeV);
+        }
+
+        protected override object GetOriginalValue()
+        {
+            return initialScale;
+        }
     }
 }
+

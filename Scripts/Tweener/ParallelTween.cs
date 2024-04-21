@@ -1,34 +1,36 @@
-using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 using System;
 
-public class ParallelTween
+namespace TweenManager
 {
-    private List<ActionTween> tweens = new List<ActionTween>();
-    private Action onComplete;
-    
-    public ParallelTween(Action onComplete = null)
+    public class ParallelTween
     {
-        this.onComplete = onComplete;
-    }
+        private List<ActionTween> tweens = new List<ActionTween>();
+        private Action onComplete;
 
-    public void AddTween(ActionTween tween)
-    {
-        tweens.Add(tween);
-        tween.OnComplete += OnTweenComplete;
-    }
-
-    public void Play()
-    {
-        foreach (var tween in tweens)
+        public ParallelTween(Action onComplete = null)
         {
-            tween.RunTween();
+            this.onComplete = onComplete;
         }
-    }
 
-    private void OnTweenComplete()
-    {
-        onComplete?.Invoke();
+        public void AddTween(ActionTween tween)
+        {
+            tweens.Add(tween);
+            tween.OnComplete += OnTweenComplete;
+        }
+
+        public void Play()
+        {
+            foreach (var tween in tweens)
+            {
+                tween.RunTween();
+            }
+        }
+
+        private void OnTweenComplete()
+        {
+            tweens.Clear();
+            onComplete?.Invoke();
+        }
     }
 }

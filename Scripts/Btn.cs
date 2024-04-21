@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TweenManager;
 
 public class Btn : MonoBehaviour
 {
@@ -18,34 +19,35 @@ public class Btn : MonoBehaviour
         sequence = new SequenceTween(() => Debug.Log("Sequence complete"));
         parallel = new ParallelTween(() => Debug.Log("Parallel complte"));
     }
+
     public void OnGo1()
     {
-        Tweener.MoveToTarget(cube.transform, cube2.transform.position, 2f, easeType, LoopType.Incremental);
-        Tweener.MoveToTarget(Go1.transform, Go2.transform.position, 2f, easeType, LoopType.Restart);
+        Tweener.MoveToTarget(cube.transform, cube2.transform.position, 2f, easeType, LoopType.None);
+        Tweener.MoveToTarget(Go1.transform, Go2.transform.position, 2f, easeType, LoopType.Yoyo);
     }
 
     public void OnGo2()
     {
         Tweener.RotateToTarget(cube.transform, new Vector3(360, 360, 0), 2f, easeType, LoopType.None);
-        Tweener.RotateToTarget(Go1.transform, new Vector3(0,0,360), 2f, easeType, LoopType.Restart);
+        Tweener.RotateToTarget(Go1.transform, new Vector3(0,0,360), 2f, easeType, LoopType.None);
     }
 
     public void OnGo3()
     {
         Tweener.ScaleToTarget(cube.transform, new Vector3(1.5f, 1.5f, 1.5f), 2f, easeType, LoopType.None);
-        Tweener.ScaleToTarget(Go1.transform, new Vector3(1.5f,1.5f,1.5f), 2f, easeType, LoopType.Restart);
+        Tweener.ScaleToTarget(Go1.transform, new Vector3(1.5f,1.5f,1.5f), 2f, easeType, LoopType.None);
     }
 
     public void OnGo4()
     {
         Tweener.ColorToTarget(cube.transform, new Color(214, 213, 152), 2f, easeType, LoopType.None);
-        Tweener.ColorToTarget(Go1.transform, new Color(214,213,152), 2f, easeType, LoopType.Restart);
+        Tweener.ColorToTarget(Go1.transform, new Color(214,213,152), 2f, easeType, LoopType.None);
     }
 
     public void OnGo5()
     {
         Tweener.AlphaToTarget(cube.transform, 0, 2f, easeType, LoopType.None);
-        Tweener.AlphaToTarget(Go1.transform, 0, 2f, easeType, LoopType.Restart);
+        Tweener.AlphaToTarget(Go1.transform, 0, 2f, easeType, LoopType.None);
     }
 
     public void OnGo6()
@@ -58,8 +60,18 @@ public class Btn : MonoBehaviour
 
     public void OnGo7()
     {
-        parallel.AddTween(Tweener.ScaleToTarget(cube.transform, new Vector3(1.5f, 1.5f, 1.5f), 2f, EaseType.InOutCirc, LoopType.None));
-        parallel.AddTween(Tweener.ColorToTarget(cube.transform, new Color(214, 213, 152), 2f, EaseType.InOutQuint, LoopType.None));
+        parallel.AddTween(Tweener.RotateToTarget(cube.transform, new Vector3(360, 0, 0), 2f, EaseType.InOutCirc, LoopType.None));
+        parallel.AddTween(Tweener.MoveToTarget(cube.transform, new Vector3(1,0,0), 2f, EaseType.InOutQuint, LoopType.Incremental));
         parallel.Play();
+    }
+
+    public void PauseTween()
+    {
+        Tweener.PauseTween(Go1);
+    }
+
+    public void ResumeTween()
+    {
+        Tweener.ResumeTween(Go1);
     }
 }

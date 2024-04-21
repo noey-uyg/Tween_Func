@@ -1,27 +1,29 @@
 using UnityEngine;
 
-public class RotateToTarget : ActionTween
+namespace TweenManager
 {
-    private Vector3 initialRotation;
-
-    private void Start()
+    public class RotateToTarget : ActionTween
     {
-        initialRotation = _target.eulerAngles;
-    }
+        private Vector3 initialRotation;
 
-    public override void SetTweenData(TweenData data)
-    {
-        base.SetTweenData(data);
-        isCompleted = true;
-    }
+        private void Start()
+        {
+            initialRotation = _target.eulerAngles;
+        }
 
-    protected override void UpdateTween(float easeV)
-    {
-        _target.eulerAngles = Vector3.Lerp(initialRotation, (Vector3)_to, easeV);
-    }
+        public override void SetTweenData(TweenData data)
+        {
+            base.SetTweenData(data);
+        }
 
-    protected override object GetOriginalValue()
-    {
-        return initialRotation;
+        protected override void UpdateTween(float easeV)
+        {
+            _target.eulerAngles = Vector3.Lerp(initialRotation, (Vector3)_to, easeV);
+        }
+
+        protected override object GetOriginalValue()
+        {
+            return initialRotation;
+        }
     }
 }

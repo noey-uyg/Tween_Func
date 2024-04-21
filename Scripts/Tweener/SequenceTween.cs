@@ -1,54 +1,53 @@
-using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 using System;
 
-public class SequenceTween
+namespace TweenManager
 {
-    private List<ActionTween> tweens = new List<ActionTween>();
-    private int currentTweenIdx = 0;
-    private Action onComplete;
-
-    public SequenceTween(Action onComplete = null)
+    public class SequenceTween
     {
-        this.onComplete = onComplete;
-    }
+        private List<ActionTween> tweens = new List<ActionTween>();
+        private Action onComplete;
 
-    public void AddTween(ActionTween tween)
-    {
-        tweens.Add(tween);
-    }
-
-    public void Play()
-    {
-        currentTweenIdx = 0;
-
-        foreach (var tween in tweens)
+        public SequenceTween(Action onComplete = null)
         {
-            tween.isCompleted = false;
+            this.onComplete = onComplete;
         }
 
-        PlayNextTween();
-    }
-
-    private void PlayNextTween()
-    {
-        if(currentTweenIdx < tweens.Count)
+        public void AddTween(ActionTween tween)
         {
-            ActionTween currentTween = tweens[currentTweenIdx];
-            currentTween.isCompleted = true;
-            currentTween.OnComplete += OnTweenComplete;
-            currentTween.RunTween();
+            tweens.Add(tween);
         }
-        else
-        {
-            onComplete?.Invoke();
-        }
-    }
 
-    private void OnTweenComplete()
-    {
-        currentTweenIdx++;
-        PlayNextTween();
+        public void Play()
+        {
+            foreach (var tween in tweens)
+            {
+                tween.isCompleted = false;
+            }
+
+            PlayNextTween();
+        }
+
+        private void PlayNextTween()
+        {
+            if (tweens.Count == 0)
+            {
+                onComplete?.Invoke();
+            }
+            else
+            {
+                ActionTween currentTween = tweens[0];
+                currentTween.isCompleted = true;
+                currentTween.OnComplete += OnTweenComplete;
+                currentTween.RunTween();
+            }
+        }
+
+        private void OnTweenComplete()
+        {
+            tweens[0].isCompleted = false;
+            tweens.RemoveAt(0);
+            PlayNextTween();
+        }
     }
 }
