@@ -52,7 +52,7 @@ public class Btn : MonoBehaviour
 
     public void OnGo6()
     {
-        sequence.AddTween(Tweener.MoveToTarget(Go1.transform, Go2.transform.position, 2f, EaseType.OutCirc, LoopType.None,5f));
+        sequence.AddTween(Tweener.MoveToTarget(Go1.transform, Go2.transform.position, 2f, EaseType.OutCirc, LoopType.None,delay:5f));
         sequence.AddTween(Tweener.RotateToTarget(Go1.transform, new Vector3(360, 360, 0), 2f, EaseType.InOutQuad, LoopType.None));
         sequence.Play();
 
@@ -60,8 +60,10 @@ public class Btn : MonoBehaviour
 
     public void OnGo7()
     {
-        parallel.AddTween(Tweener.RotateToTarget(cube.transform, new Vector3(360, 0, 0), 2f, EaseType.InOutCirc, LoopType.None));
-        parallel.AddTween(Tweener.MoveToTarget(cube.transform, new Vector3(1,0,0), 2f, EaseType.InOutQuint, LoopType.Incremental));
+        //parallel.AddTween(Tweener.RotateToTarget(cube.transform, new Vector3(360, 0, 0), 2f, EaseType.InOutCirc, LoopType.None));
+        //parallel.AddTween(Tweener.MoveToTarget(cube.transform, new Vector3(1,0,0), 2f, EaseType.InOutQuint, LoopType.Incremental));
+        parallel.AddTween(Tweener.MoveToTarget(cube.transform, new Vector3(10, 0, 0), 2f, EaseType.InOutQuint, LoopType.Yoyo,true));
+        parallel.AddTween(Tweener.MoveToTarget(cube2.transform, new Vector3(10, 0, 0), 2f, EaseType.InOutQuint, LoopType.Yoyo,false));
         parallel.Play();
     }
 

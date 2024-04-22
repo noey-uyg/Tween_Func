@@ -12,14 +12,14 @@ namespace TweenManager
 
         private void Start()
         {
-            targetGraphic = _target.GetComponent<Graphic>();
+            _target.TryGetComponent<Graphic>(out targetGraphic);
             if (targetGraphic != null)
             {
                 initialColor = targetGraphic.color;
             }
             else
             {
-                targetRenderer = _target.GetComponent<Renderer>();
+                _target.TryGetComponent<Renderer>(out targetRenderer);
                 if (targetRenderer != null)
                 {
                     targetRenderer.material.SetFloat("_Mode", 2.0f);

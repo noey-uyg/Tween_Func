@@ -11,17 +11,16 @@ namespace TweenManager
         private Color colorTo;
         private Color normalizedColor;
 
-
         private void Start()
         {
-            targetGraphic = _target.GetComponent<Graphic>();
+            _target.TryGetComponent<Graphic>(out targetGraphic);
             if (targetGraphic != null)
             {
                 initialColor = targetGraphic.color;
             }
             else
             {
-                targetRenderer = _target.GetComponent<Renderer>();
+                _target.TryGetComponent<Renderer>(out targetRenderer);
                 if (targetRenderer != null)
                 {
                     initialColor = targetRenderer.material.color;

@@ -69,7 +69,7 @@ namespace TweenManager
             }
         }
 
-        public static ActionTween MoveToTarget(Transform target, Vector3 to, float duration, EaseType easeType, LoopType loopType, float delay = 0f, Action onComplete = null)
+        public static ActionTween MoveToTarget(Transform target, Vector3 to, float duration, EaseType easeType,LoopType loopType, bool isRelative = false, float delay = 0f, Action onComplete = null)
         {
             ActionTween moveToTargetObj = CreateTweenObject<MoveToTarget>(target);
 
@@ -81,6 +81,7 @@ namespace TweenManager
                 easeType = easeType,
                 loopType = loopType,
                 delayTimer = delay,
+                isRelative = isRelative,
 
                 OnComplete = () =>
                 {
@@ -94,7 +95,7 @@ namespace TweenManager
             return moveToTargetObj;
         }
 
-        public static ActionTween RotateToTarget(Transform target, Vector3 to, float duration, EaseType easeType, LoopType loopType, float delay = 0f, Action onComplete = null)
+        public static ActionTween RotateToTarget(Transform target, Vector3 to, float duration, EaseType easeType,LoopType loopType, bool isRelative = false, float delay = 0f, Action onComplete = null)
         {
             ActionTween rotateToTargetObj = CreateTweenObject<RotateToTarget>(target);
 
@@ -106,7 +107,8 @@ namespace TweenManager
                 easeType = easeType,
                 loopType = loopType,
                 delayTimer = delay,
-                
+                isRelative = isRelative,
+
                 OnComplete = () =>
                 {
                     rotateToTargetObj.enabled = false;
@@ -119,7 +121,7 @@ namespace TweenManager
             return rotateToTargetObj;
         }
 
-        public static ActionTween ScaleToTarget(Transform target, Vector3 to, float duration, EaseType easeType, LoopType loopType, float delay = 0f, Action onComplete = null)
+        public static ActionTween ScaleToTarget(Transform target, Vector3 to, float duration, EaseType easeType, LoopType loopType, bool isRelative = false, float delay = 0f, Action onComplete = null)
         {
             ActionTween scaleToTargetObj = CreateTweenObject<ScaleToTarget>(target);
             TweenData data = new()
@@ -130,7 +132,8 @@ namespace TweenManager
                 easeType = easeType,
                 loopType = loopType,
                 delayTimer = delay,
-                
+                isRelative = isRelative,
+
                 OnComplete = () =>
                 {
                     scaleToTargetObj.enabled = false;
@@ -143,7 +146,7 @@ namespace TweenManager
             return scaleToTargetObj;
         }
 
-        public static ActionTween ColorToTarget(Transform target, Color to, float duration, EaseType easeType, LoopType loopType, float delay = 0f, Action onComplete = null)
+        public static ActionTween ColorToTarget(Transform target, Color to, float duration, EaseType easeType,LoopType loopType, bool isRelative = false, float delay = 0f, Action onComplete = null)
         {
             ActionTween colorToTargetObj = CreateTweenObject<ColorToTarget>(target);
 
@@ -155,7 +158,8 @@ namespace TweenManager
                 easeType = easeType,
                 loopType = loopType,
                 delayTimer = delay,
-                
+                isRelative = isRelative,
+
                 OnComplete = () =>
                 {
                     colorToTargetObj.enabled = false;
@@ -169,7 +173,7 @@ namespace TweenManager
         }
 
 
-        public static ActionTween AlphaToTarget(Transform target, float toAlpha, float duration, EaseType easeType, LoopType loopType, float delay = 0f, Action onComplete = null)
+        public static ActionTween AlphaToTarget(Transform target, float toAlpha, float duration, EaseType easeType,LoopType loopType, bool isRelative = false, float delay = 0f, Action onComplete = null)
         {
             ActionTween alphaToTargetObj = CreateTweenObject<AlphaToTarget>(target);
 
@@ -181,7 +185,8 @@ namespace TweenManager
                 easeType = easeType,
                 loopType = loopType,
                 delayTimer = delay,
-                
+                isRelative = isRelative,
+
                 OnComplete = () =>
                 {
                     alphaToTargetObj.enabled = false;

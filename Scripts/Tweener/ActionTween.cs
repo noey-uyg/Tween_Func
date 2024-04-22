@@ -12,6 +12,7 @@ namespace TweenManager
         public float duration;
         public EaseType easeType;
         public LoopType loopType;
+        public bool isRelative;
 
         public Action OnComplete;
 
@@ -26,6 +27,7 @@ namespace TweenManager
         public float _duration;
         public EaseType _easeType;
         public LoopType _loopType;
+        public bool _isRelative;
         public Action OnComplete;
 
         public float elapsedTime;
@@ -46,10 +48,16 @@ namespace TweenManager
             _easeType = data.easeType;
             _loopType = data.loopType;
             _delayTimer = data.delayTimer;
+            _isRelative = data.isRelative;
             OnComplete = data.OnComplete;
 
             elapsedTime = 0f;
             isCompleted = true;
+
+            if (_isRelative)
+            {
+                _to = (Vector3)_to + (Vector3)_from;
+            }
         }
 
         public void RunTween()
