@@ -40,11 +40,11 @@ namespace TweenManager
         {
             if (targetGraphic != null)
             {
-                targetGraphic.color = Color.Lerp(initialColor, normalizedColor, easeV);
+                targetGraphic.color = Color.LerpUnclamped(initialColor, normalizedColor, easeV);
             }
             else if (targetRenderer != null)
             {
-                targetRenderer.material.color = Color.Lerp(initialColor, normalizedColor, easeV);
+                targetRenderer.material.color = Color.LerpUnclamped(initialColor, normalizedColor, easeV);
             }
         }
 

@@ -201,11 +201,13 @@ namespace TweenManager
 
         private static T CreateTweenObject<T>(Transform target) where T : ActionTween
         {
-            T tweenObj = target.GetComponent<T>();
+            target.TryGetComponent<T>(out T tweenObj);
+
             if (tweenObj == null)
             {
                 tweenObj = target.gameObject.AddComponent<T>();
             }
+
             return tweenObj;
         }
 

@@ -114,9 +114,7 @@ namespace TweenManager
                     elapsedTime = 0f;
                     break;
                 case LoopType.Yoyo:
-                    object temp = _from;
-                    _from = _to;
-                    _to = temp;
+                    (_to, _from) = (_from, _to);
                     _delayTimer = 0.2f;
                     elapsedTime = 0f;
                     break;

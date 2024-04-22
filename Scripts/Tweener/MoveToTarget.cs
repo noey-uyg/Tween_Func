@@ -20,7 +20,7 @@ namespace TweenManager
 
         protected override void UpdateTween(float easeV)
         {
-            _target.position = Vector3.Lerp((Vector3)_from, (Vector3)_to, easeV);
+            _target.position = Vector3.LerpUnclamped((Vector3)_from, (Vector3)_to, easeV);
         }
 
         protected override object GetOriginalValue()

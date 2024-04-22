@@ -62,7 +62,7 @@ public class Btn : MonoBehaviour
     {
         //parallel.AddTween(Tweener.RotateToTarget(cube.transform, new Vector3(360, 0, 0), 2f, EaseType.InOutCirc, LoopType.None));
         //parallel.AddTween(Tweener.MoveToTarget(cube.transform, new Vector3(1,0,0), 2f, EaseType.InOutQuint, LoopType.Incremental));
-        parallel.AddTween(Tweener.MoveToTarget(cube.transform, new Vector3(10, 0, 0), 2f, EaseType.InOutQuint, LoopType.Yoyo,true));
+        parallel.AddTween(Tweener.MoveToTarget(cube.transform, new Vector3(10, 0, 0), 2f, EaseType.InBack, LoopType.Yoyo,true));
         parallel.AddTween(Tweener.MoveToTarget(cube2.transform, new Vector3(10, 0, 0), 2f, EaseType.InOutQuint, LoopType.Yoyo,false));
         parallel.Play();
     }

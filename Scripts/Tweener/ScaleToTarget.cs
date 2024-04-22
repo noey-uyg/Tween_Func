@@ -18,7 +18,7 @@ namespace TweenManager
 
         protected override void UpdateTween(float easeV)
         {
-            _target.localScale = Vector3.Lerp(initialScale, (Vector3)_to, easeV);
+            _target.localScale = Vector3.LerpUnclamped(initialScale, (Vector3)_to, easeV);
         }
 
         protected override object GetOriginalValue()

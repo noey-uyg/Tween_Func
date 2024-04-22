@@ -18,7 +18,7 @@ namespace TweenManager
 
         protected override void UpdateTween(float easeV)
         {
-            _target.eulerAngles = Vector3.Lerp(initialRotation, (Vector3)_to, easeV);
+            _target.eulerAngles = Vector3.LerpUnclamped(initialRotation, (Vector3)_to, easeV);
         }
 
         protected override object GetOriginalValue()
