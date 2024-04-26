@@ -9,7 +9,7 @@
 - 계속해서 필요한 기능을 업데이트 할 예정입니다.
 
 - ### Sequence 및 Parallel Tweens (순차 및 병렬 애니메이션):
-  - Sequence Tween: 여러 개의 Tween을 순차적으로 실행할 수 있습니다. 전의 Tween이 완료되면 다음 Tween이 실행됩니다.
+  - Sequence Tween: 여러 개의 Tween을 순차적으로 실행할 수 있습니다. 현재 Tween이 완료되면 다음 Tween이 실행됩니다.
 
   - Parallel Tween: 여러 개의 Tween을 동시에 실행할 수 있습니다. 모든 Tween이 동시에 시작되며, 각각 개별 적용이 가능합니다.
 
