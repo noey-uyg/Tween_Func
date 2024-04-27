@@ -6,7 +6,6 @@
 # 설명
 - DOTween을 토대로 재구성한 스크립트입니다.
 - UI 및 Object에 효과를 줄 때 재사용하기 위해 제작하게 되었습니다.
-- 계속해서 필요한 기능을 업데이트 할 예정입니다.
 
 - ### Sequence 및 Parallel Tweens (순차 및 병렬 애니메이션):
   - Sequence Tween: 여러 개의 Tween을 순차적으로 실행할 수 있습니다. 현재 Tween이 완료되면 다음 Tween이 실행됩니다.
